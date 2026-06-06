@@ -1,0 +1,19 @@
+# Build directory
+build/
+
+# Compiled object files and binaries
+*.o
+*.a
+*.so
+*.dylib
+*.exe
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+Makefile
+
+# macOS metadata
+.DS_Store
