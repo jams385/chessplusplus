@@ -28,7 +28,7 @@ void chessBoard::setPiece(uint8_t piece, uint8_t square){
 }
 
 
-Chessboard::Chessboard()
+Chessboard::chessBoard()
 {
 	bitboards[WHITE_PAWN]   = 0x00ff000000000000;
 	bitboards[WHITE_KNIGHT] = 0x2400000000000000;

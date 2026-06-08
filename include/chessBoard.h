@@ -20,7 +20,7 @@ public:
 
     // gets a piece then sets it to a specific square
     uint8_t getPiece(std::uint8_t square);
-    void setPiecee(std::uint8_t piece, std::uint8_t square);
+    void setPiece(std::uint8_t piece, std::uint8_t square);
 
     chessBoard(); //constructor
     
