@@ -1,5 +1,5 @@
 #include "raylib.h"
-#include "ChessBoard.h"
+#include "chessBoard.h"
 #include "configs.h"
 #include "stdio.h"
 #include "stdlib.h"
@@ -19,8 +19,11 @@ int main(void){
     SetTargetFPS(60);
 
     // initialize variables
-    Vector2 mouse_position = {0, 0};
-    Vector2 selectedTile = {-1, -1};
+    Vector2 mousePos;
+    int selectedTile_x = -1;
+    int selectedTile_y = -1;
+
+
 
     while(WindowShouldClose() == false){
 
@@ -30,15 +33,34 @@ int main(void){
 
         // gets mouse position when clicked
         if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-            mouse_position = GetMousePosition();
+            mousePos = pixelToGrid(GetMousePosition());
+
+            int click_x = mousePos.x;
+            int click_y = mousePos.y;
+
+            if(selectedTile_x >= 0 && selectedTile_y >= 0 && selectedTile_x < 8 && selectedTile_y < 8 && game.getPiece(selectedTile_y * 8 + selectedTile_x) != empty){
+    
+                // if a tile is not selected, select the tile
+                if(click_x >= 0 && click_y >= 0 && click_x < 8 && click_y < 8){
+                    game.setPiece(game.getPiece(selectedTile_y * 8 + selectedTile_x), click_y * 8 + click_x);
+                    game.setPiece(empty, selectedTile_y * 8 + selectedTile_x);
+                }
+
+                selectedTile_x = -1;
+                selectedTile_y = -1;
+
+            } else {
+                selectedTile_x = click_x;
+                selectedTile_y = click_y;
+            }
         }
 
         /* --------------------------------------------------
             UPDATE
         ----------------------------------------------------- */
         
-        selectedTile = pixelToGrid(mouse_position);
     
+
         /* --------------------------------------------------
             RENDER/DRAW
         ----------------------------------------------------- */
@@ -50,8 +72,8 @@ int main(void){
         drawBoard();
 
         // higlights selected tile
-        if((selectedTile.x >= 0 && selectedTile.y >= 0) && (selectedTile.x < 8 && selectedTile.y < 8)){
-            DrawRectangle   (configs::tile_width * selectedTile.x, configs::tile_height * selectedTile.y, 
+        if((selectedTile_x >= 0 && selectedTile_y >= 0) && (selectedTile_x < 8 && selectedTile_y < 8)){
+            DrawRectangle   (configs::tile_width * selectedTile_x, configs::tile_height * selectedTile_y, 
                             configs::tile_width, configs::tile_height, BLUE);
         }
 

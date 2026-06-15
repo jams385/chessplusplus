@@ -1,4 +1,4 @@
-#include <ChessBoard.h>
+#include <chessBoard.h>
 #include <cstdint>
 
 // constructor
