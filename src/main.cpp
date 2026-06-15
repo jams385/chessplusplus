@@ -18,47 +18,46 @@ int main(void){
     InitWindow(configs::window_Width, configs::window_Height, configs::ProjectName);
     SetTargetFPS(60);
 
-    // initialize variables
-    Vector2 mousePos;
     int selectedTile_x = -1;
     int selectedTile_y = -1;
-
-
 
     while(WindowShouldClose() == false){
 
         /* --------------------------------------------------
             EVENT HANDLING
         ----------------------------------------------------- */
+        int click_x = -1;
+        int click_y = -1;
 
         // gets mouse position when clicked
         if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-            mousePos = pixelToGrid(GetMousePosition());
-
-            int click_x = mousePos.x;
-            int click_y = mousePos.y;
-
-            if(selectedTile_x >= 0 && selectedTile_y >= 0 && selectedTile_x < 8 && selectedTile_y < 8 && game.getPiece(selectedTile_y * 8 + selectedTile_x) != empty){
-    
-                // if a tile is not selected, select the tile
-                if(click_x >= 0 && click_y >= 0 && click_x < 8 && click_y < 8){
-                    game.setPiece(game.getPiece(selectedTile_y * 8 + selectedTile_x), click_y * 8 + click_x);
-                    game.setPiece(empty, selectedTile_y * 8 + selectedTile_x);
-                }
-
-                selectedTile_x = -1;
-                selectedTile_y = -1;
-
-            } else {
-                selectedTile_x = click_x;
-                selectedTile_y = click_y;
-            }
+            Vector2 mousePos = pixelToGrid(GetMousePosition());
+            click_x = mousePos.x;
+            click_y = mousePos.y;
         }
 
         /* --------------------------------------------------
             UPDATE
         ----------------------------------------------------- */
+
+        bool validClick = (click_x >= 0 && click_y >= 0 && click_x <  8 && click_y <  8);
+        bool pieceSelected = (selectedTile_x >= 0 && selectedTile_y >= 0 && selectedTile_x < 8 && selectedTile_y < 8 && game.getPiece(selectedTile_y * 8 + selectedTile_x) != empty);
         
+        if(validClick){
+
+            // if a tile is not selected, select the tile
+            if(pieceSelected){
+                game.setPiece(game.getPiece(selectedTile_y * 8 + selectedTile_x), click_y * 8 + click_x);
+                game.setPiece(empty, selectedTile_y * 8 + selectedTile_x);
+
+                selectedTile_x = -1;
+                selectedTile_y = -1;
+            }
+            else {
+                selectedTile_x = click_x;
+                selectedTile_y = click_y;
+            }
+        }
     
 
         /* --------------------------------------------------
