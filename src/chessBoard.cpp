@@ -4,19 +4,19 @@
 // constructor
 ChessBoard::ChessBoard()
 {
-	bitboards[whitePawn] = 0x000000000000FF00;
-	bitboards[whiteBishop] = 0x0000000000000024;
-	bitboards[whiteKnight] = 0x0000000000000042;
-	bitboards[whiteQueen] = 0x0000000000000010;
-	bitboards[whiteKing] = 0x0000000000000008;
-	bitboards[whiteRook] = 0x0000000000000081;
+	bitboards[whitePawn] = 0x00ff000000000000;
+	bitboards[whiteBishop] = 0x2400000000000000;
+	bitboards[whiteKnight] = 0x4200000000000000;
+	bitboards[whiteQueen] = 0x1000000000000000;
+	bitboards[whiteKing] = 0x0800000000000000;
+	bitboards[whiteRook] = 0x8100000000000000;
 
-	bitboards[blackPawn] = 0x00ff000000000000;
-	bitboards[blackBishop] = 0x2400000000000000;
-	bitboards[blackKnight] = 0x4200000000000000;
-	bitboards[blackQueen] = 0x1000000000000000;
-	bitboards[blackKing] = 0x0800000000000000;
-	bitboards[blackRook] = 0x8100000000000000;
+	bitboards[blackPawn] = 0x000000000000FF00;
+	bitboards[blackBishop] = 0x0000000000000024;
+	bitboards[blackKnight] = 0x0000000000000042;
+	bitboards[blackQueen] = 0x0000000000000010;
+	bitboards[blackKing] = 0x0000000000000008;
+	bitboards[blackRook] = 0x0000000000000081;
 }
 
 // gets the piece from a selected square

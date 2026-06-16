@@ -30,7 +30,7 @@ int main(void){
         int click_x = -1;
         int click_y = -1;
 
-        // gets mouse position when clicked
+        // gets mouse position when user left-clicks
         if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
             click_x = pixelToGrid(GetMousePosition()).x;
             click_y = pixelToGrid(GetMousePosition()).y;
@@ -43,22 +43,24 @@ int main(void){
         // bool values that check if the click is valid and if a piece is selected
         bool validClick = (click_x >= 0 && click_y >= 0 && click_x <  8 && click_y <  8);
         bool pieceSelected = (selectedTile_x >= 0 && selectedTile_y >= 0 && selectedTile_x < 8 && selectedTile_y < 8 && game.getPiece(selectedTile_y * 8 + selectedTile_x) != empty);
-        
-        // if the click is valid and a piece is selected, move the piece. If not, select the tile.
-        if(validClick && pieceSelected){
 
-            game.setPiece(game.getPiece(selectedTile_y * 8 + selectedTile_x), click_y * 8 + click_x);
-            game.setPiece(empty, selectedTile_y * 8 + selectedTile_x);
+        // moves the piece or selects the tile
+        if(validClick){
 
-            selectedTile_x = -1;
-            selectedTile_y = -1;
+            // if click is valid and a piece is selected, move the piece and de-select the tile
+            if(pieceSelected){
+                game.setPiece(game.getPiece(selectedTile_y * 8 + selectedTile_x), click_y * 8 + click_x);
+                game.setPiece(empty, selectedTile_y * 8 + selectedTile_x);
 
-        } else {
-
-            selectedTile_x = click_x;
-            selectedTile_y = click_y;
+                selectedTile_x = -1;
+                selectedTile_y = -1;
+            }
+            // if a click is valid but a piece is not selected then select the tile/piece
+            else {
+                selectedTile_x = click_x;
+                selectedTile_y = click_y;
+            }
         }
-
     
 
         /* --------------------------------------------------

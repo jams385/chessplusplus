@@ -22,6 +22,8 @@ public:
     uint8_t getPiece(std::uint8_t square);
     void setPiece(std::uint8_t piece, std::uint8_t square);
 
+    void flipBoard();
+
     ChessBoard(); //constructor
     
 private:
